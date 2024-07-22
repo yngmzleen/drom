@@ -2,6 +2,7 @@ import os
 import requests
 import base64
 import xml.etree.ElementTree as ET
+import re
 
 # Настройки для API
 url = "http://ka2.sibzapaska.ru/API/hs/v1/product"
