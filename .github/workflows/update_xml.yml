@@ -23,9 +23,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Run update script
-        run: python update_products.py
-
+      - name: Run update tyres
+        run: python zapaska_tyres.py
+        
+      - name: Run update disks
+        run: python zapaska_disks.py
+        
       - name: Commit and push changes
         run: |
           git config --global user.name 'github-actions'
