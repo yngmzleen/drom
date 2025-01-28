@@ -24,6 +24,11 @@ root = ET.Element("Products")
 
 # Преобразование каждого товара в XML элемент
 for item in data:
+    # Проверка на наличие "ЗБ" в начале значения поля <name>
+    name = item.get("name", "")
+    if name.startswith("ЗБ"):
+        continue  # Пропускаем этот товар
+
     product = ET.SubElement(root, "Product")
     for key, value in item.items():
         if key != "Оптовая_Цена":  # Исключаем поле "Оптовая_Цена"
