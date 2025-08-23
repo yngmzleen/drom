@@ -35,6 +35,12 @@ for item in data:
             element = ET.SubElement(product, key)
             element.text = str(value)
 
+    # Добавляем поле studded для модели Nortec LT 610
+    model = item.get("model", "")
+    if model == "Nortec LT 610":
+        studded_element = ET.SubElement(product, "studded")
+        studded_element.text = "Нет"
+
     # Определение тега для товара
     nomenclature = item.get("Номенклатура", "")
     if re.match(r'^(1[2-9]|2[0-4])\s', nomenclature):
