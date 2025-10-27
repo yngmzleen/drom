@@ -33,7 +33,18 @@ for item in data:
     for key, value in item.items():
         if key != "Оптовая_Цена":  # Исключаем поле "Оптовая_Цена"
             element = ET.SubElement(product, key)
-            element.text = str(value)
+
+            # --- увеличение розничной цены на 5% ---
+            if key.lower() == "retail":
+                try:
+                    val = float(str(value).replace(",", ".").strip())
+                    val = int(val * 1.05)  # +5%, округление вниз
+                    element.text = str(val)
+                except ValueError:
+                    element.text = str(value)
+            else:
+                element.text = str(value)
+            # ----------------------------------------
 
     # Добавляем поле studded для модели Nortec LT 610
     model = item.get("model", "")
@@ -53,4 +64,4 @@ tree = ET.ElementTree(root)
 with open("tyres.xml", "wb") as file:
     tree.write(file, encoding="utf-8", xml_declaration=True)
 
-print("XML файл успешно создан.")
+print("✅ XML файл успешно создан; розничные цены <retail> увеличены на 5%.")
